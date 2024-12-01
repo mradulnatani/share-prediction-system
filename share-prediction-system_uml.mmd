@@ -35,6 +35,7 @@ classDiagram
     }
 
     class torch {
+        <<module>>
         class Tensor {
             <<abstract>>
         }
@@ -46,7 +47,5 @@ classDiagram
     StockPricePredictorCNN --> Adam : Uses
     StockPricePredictorCNN --> DataLoader : Uses
     StockDataset --> DataLoader : Uses
-    torch.Tensor --|> torch.Tensor : Returns
     StockPricePredictorCNN o-- "1" MinMaxScaler : Uses
     StockPricePredictorCNN o-- "1" DataLoader : Uses
-
