@@ -36,9 +36,10 @@ classDiagram
 
     class torch {
         <<module>>
-        class Tensor {
-            <<abstract>>
-        }
+    }
+
+    class Tensor {
+        <<abstract>>
     }
 
     StockDataset --|> Dataset : Inherits
@@ -49,3 +50,4 @@ classDiagram
     StockDataset --> DataLoader : Uses
     StockPricePredictorCNN o-- "1" MinMaxScaler : Uses
     StockPricePredictorCNN o-- "1" DataLoader : Uses
+    Tensor --|> torch : BelongsTo
