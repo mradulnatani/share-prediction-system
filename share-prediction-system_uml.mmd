@@ -1,0 +1,52 @@
+classDiagram
+    class StockDataset {
+        +__init__(data: pd.DataFrame, sequence_length: int)
+        +__len__() int
+        +__getitem__(idx: int) tuple
+    }
+
+    class StockPricePredictorCNN {
+        +__init__(input_size: int, num_filters: int, kernel_size: int, hidden_size: int, sequence_length: int)
+        +forward(x: torch.Tensor) torch.Tensor
+    }
+
+    class MinMaxScaler {
+        +fit_transform(X: np.ndarray) np.ndarray
+        +inverse_transform(X: np.ndarray) np.ndarray
+    }
+
+    class DataLoader {
+        +__init__(dataset: Dataset, batch_size: int, shuffle: bool)
+    }
+
+    class Dataset {
+        <<abstract>>
+        +__len__() int
+        +__getitem__(idx: int) tuple
+    }
+
+    class MSELoss {
+        +forward(input: torch.Tensor, target: torch.Tensor) torch.Tensor
+    }
+
+    class Adam {
+        +__init__(params: torch.nn.Parameter, lr: float)
+        +step() void
+    }
+
+    class torch {
+        class Tensor {
+            <<abstract>>
+        }
+    }
+
+    StockDataset --|> Dataset : Inherits
+    StockPricePredictorCNN --> nn.Module : Inherits
+    StockPricePredictorCNN --> MSELoss : Uses
+    StockPricePredictorCNN --> Adam : Uses
+    StockPricePredictorCNN --> DataLoader : Uses
+    StockDataset --> DataLoader : Uses
+    torch.Tensor --|> torch.Tensor : Returns
+    StockPricePredictorCNN o-- "1" MinMaxScaler : Uses
+    StockPricePredictorCNN o-- "1" DataLoader : Uses
+
